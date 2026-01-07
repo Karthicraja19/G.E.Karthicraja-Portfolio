@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX/UI & Graphic Design Portfolio | KARTHICRAJA</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#14b8a6', // Deep Teal
+                        'accent': '#f97316', // Bright Coral
+                        'dark-text': '#1f2937',
+                        'light-bg': '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Add Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom scrollbar */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: #14b8a6;
+            border-radius: 20px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+
+        /* Stamped/Outline Typography Style */
+        .stamped-text {
+            text-shadow: 
+                -2px -2px 0 #fff, 
+                2px -2px 0 #fff, 
+                -2px 2px 0 #fff, 
+                2px 2px 0 #fff,
+                4px 4px 0 #1f2937;
+            color: #14b8a6;
+            line-height: 0.85;
+        }
+
+        /* Carousel Dot Active State */
+        .carousel-dot.active {
+            width: 1.5rem;
+            background-color: currentColor;
+            opacity: 1;
+        }
+
+        .skill-tag {
+            @apply inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full transition duration-200 hover:bg-primary/20 hover:shadow-md;
+        }
+        .tool-tag {
+            @apply inline-block px-4 py-2 bg-accent/10 text-accent text-sm font-medium rounded-full transition duration-200 hover:bg-accent/20 hover:shadow-md;
+        }
+
+        /* Poster aspect ratio */
+        .poster-card img {
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            width: 100%;
+            cursor: zoom-in;
+        }
+
+        /* Lightbox transitions */
+        #lightbox {
+            transition: opacity 0.3s ease-in-out;
+            backdrop-filter: blur(8px);
+        }
+
+        /* CAROUSEL ALIGNMENT FIXES */
+        .carousel-outer {
+            position: relative;
+            background-color: #f1f5f9;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .carousel-container {
+            height: 500px; /* Fixed height for the project box */
+            width: 100%;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 4rem; /* Padding ensures screens don't touch edges or buttons */
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            border-radius: 1.5rem; /* Give phone screens rounded corners */
+        }
+
+        /* Navigation Buttons */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.9);
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+        .nav-btn:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .nav-btn.prev { left: 1rem; }
+        .nav-btn.next { right: 1rem; }
+    </style>
+</head>
+<body class="bg-light-bg text-dark-text font-sans scroll-smooth">
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg backdrop-blur-md bg-opacity-90">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-extrabold text-primary">UX/GD Portfolio</h1>
+            <div class="space-x-4">
+                <a href="#skills" class="text-dark-text hover:text-accent transition duration-150 font-medium">Skills</a>
+                <a href="#projects" class="text-dark-text hover:text-accent transition duration-150 font-medium">Projects</a>
+                <a href="#graphic-design" class="text-dark-text hover:text-accent transition duration-150 font-medium">Graphics</a>
+                <a href="#contact" class="px-3 py-1 bg-primary text-white rounded-lg hover:bg-teal-600 transition duration-150 shadow-md">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Hero Section -->
+        <section id="hero" class="py-24 text-left">
+            <div class="max-w-4xl">
+                <p class="text-3xl text-primary font-semibold mb-2">Hello, I'm</p>
+                <h2 class="leading-none mb-6">
+                    <span class="block text-6xl lg:text-8xl font-extrabold uppercase stamped-text">KARTHICRAJA</span>
+                    <span id="designerTitle" class="text-dark-text block text-4xl sm:text-6xl font-black mt-2">UI/UX & Graphic Designer.</span>
+                </h2>
+                
+                <h3 class="text-3xl font-bold text-dark-text mb-4">About Me</h3>
+                <p class="text-lg text-gray-600 mb-10 max-w-2xl">
+                  I am a UI/UX and Graphic Designer who turns complex ideas into simple, beautiful designs. I help brands tell their story through clean visuals and modern styles. I focus on making layouts that look great and are very easy for people to navigate. I am a quick learner, ready to bring fresh ideas and energy to your design team. I want to use my skills to help your company grow and succeed.
+                </p>
+                <a href="#contact" class="inline-block px-8 py-3 bg-accent text-white font-bold text-lg rounded-xl shadow-lg hover:bg-orange-600 transition duration-300 transform hover:scale-105">
+                    View Contact Info
+                </a>
+            </div>
+        </section>
+        
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="py-20">
+            <h3 class="text-4xl font-bold text-dark-text mb-12 text-center">Core Design Skills & Tools</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-primary">
+                    <h4 class="text-3xl font-bold text-primary mb-6">UI/UX Expertise</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag">User Research & Testing</span>
+                        <span class="skill-tag">Wireframing & Prototyping</span>
+                        <span class="skill-tag">Interaction Design</span>
+                        <span class="skill-tag">Information Architecture (IA)</span>
+                        <span class="skill-tag">Design Systems</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-dark-text mt-8 mb-4">UI/UX Tools</h5>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="tool-tag">Figma / FigJam</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-accent">
+                    <h4 class="text-3xl font-bold text-accent mb-6">Graphic Design & Visuals</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag">Branding & Identity</span>
+                        <span class="skill-tag">Typography</span>
+                        <span class="skill-tag">Layout & Composition</span>
+                        <span class="skill-tag">Color Theory</span>
+                        <span class="skill-tag">Social Media Post</span>
+                        <span class="skill-tag">Banners</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-dark-text mt-8 mb-4">Graphic Tool</h5>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="tool-tag">Canva</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- UX/UI Projects Section -->
+        <section id="projects" class="py-20">
+            <h3 class="text-4xl font-bold text-dark-text mb-12 text-center">UI/UX Designs</h3>
+            
+            <!-- Project 1: Food Delivery App -->
+            <div class="bg-white p-8 rounded-2xl shadow-xl mb-16 border-t-4 border-primary">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+                    <div>
+                        <h4 class="text-3xl font-bold text-primary mb-4">1. Dine Drop</h4>
+                         <p class="text-gray-500 font-medium">A simple and fast food delivery app designed to help users find and order their favorite meals in just a few taps.</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-outer">
+                    <div class="carousel-container">
+                        <div id="FreshEatsTrack" class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="Food app s1.jpg" alt="Dine Drop Screen 1" onerror="this.src='https://placehold.co/400x850/14b8a6/ffffff?text=Screen+1'">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="Food app s2.jpg" alt="Dine Drop Screen 2" onerror="this.src='https://placehold.co/400x850/14b8a6/ffffff?text=Screen+2'">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="Food app s3.jpg" alt="Dine Drop Screen 3" onerror="this.src='https://placehold.co/400x850/14b8a6/ffffff?text=Screen+3'">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="nav-btn prev text-primary" onclick="moveSlide('FreshEats', -1)">&#10094;</button>
+                    <button class="nav-btn next text-primary" onclick="moveSlide('FreshEats', 1)">&#10095;</button>
+                </div>
+
+                <div id="FreshEatsIndicators" class="flex justify-center gap-3 mt-6">
+                    <span class="carousel-dot w-3 h-3 rounded-full bg-gray-300 opacity-50 cursor-pointer" onclick="goToSlide('FreshEats', 0)"></span>
+                    <span class="carousel-dot w-3 h-3 rounded-full bg-gray-300 opacity-50 cursor-pointer" onclick="goToSlide('FreshEats', 1)"></span>
+                    <span class="carousel-dot w-3 h-3 rounded-full bg-gray-300 opacity-50 cursor-pointer" onclick="goToSlide('FreshEats', 2)"></span>
+                </div>
+            </div>
+
+            <!-- Project 2: Travel App -->
+            <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-primary mt-12">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+                    <div>
+                        <h4 class="text-3xl font-bold text-primary mb-4">2. Roam</h4>
+                        <p class="text-gray-500 font-medium">A user-friendly mobile app created to simplify trip planning and help users explore the world with confidence.</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-outer">
+                    <div class="carousel-container">
+                        <div id="RoamTrack" class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="Travel app s1.png" alt="Roam Screen 1" onerror="this.src='https://placehold.co/400x850/f97316/ffffff?text=Screen+1'">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="Travel app s2.png" alt="Roam Screen 2" onerror="this.src='https://placehold.co/400x850/f97316/ffffff?text=Screen+2'">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="nav-btn prev text-accent" onclick="moveSlide('Roam', -1)">&#10094;</button>
+                    <button class="nav-btn next text-accent" onclick="moveSlide('Roam', 1)">&#10095;</button>
+                </div>
+
+                <div id="RoamIndicators" class="flex justify-center gap-3 mt-6">
+                    <span class="carousel-dot w-3 h-3 rounded-full bg-gray-300 opacity-50 cursor-pointer" onclick="goToSlide('Roam', 0)"></span>
+                    <span class="carousel-dot w-3 h-3 rounded-full bg-gray-300 opacity-50 cursor-pointer" onclick="goToSlide('Roam', 1)"></span>
+                </div>
+            </div>
+
+             <!-- Project 3: Desktop Website -->
+            <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-primary mt-12">
+                <h4 class="text-3xl font-bold text-primary mb-4">3. Dunder Mifflin - Company Profile (Desktop)</h4>
+                <p class="text-gray-600 mb-8 max-w-3xl">Redesigning a cluttered corporate profileinto a clear and simple experience.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="desktop-screen-container">
+                        <img src="Company pb.png" alt="Desktop Homepage" onerror="this.onerror=null; this.src='https://placehold.co/1200x675/dbeafe/1f2937?text=Home+Screen'">
+                    </div>
+
+                    <div class="desktop-screen-container">
+                        <img src="Company pa.png" alt="Desktop Services Page" onerror="this.onerror=null; this.src='https://placehold.co/1200x675/dbeafe/1f2937?text=Service+Screen'">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graphic Design Section -->
+        <section id="graphic-design" class="py-20">
+            <h3 class="text-4xl font-bold text-dark-text mb-12 text-center">Graphic Design Showcase</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <div class="poster-card bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:-translate-y-1">
+                    <img src="PIRLA.png" onclick="openLightbox(this)" onerror="this.src='https://placehold.co/400x550/f97316/ffffff?text=Poster+1'">
+                    <p class="p-3 text-center text-xs font-bold text-gray-700">Admission Poster</p>
+                </div>
+                <div class="poster-card bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:-translate-y-1">
+                    <img src="Recuritment poster.png" onclick="openLightbox(this)" onerror="this.src='https://placehold.co/400x550/f97316/ffffff?text=Poster+2'">
+                    <p class="p-3 text-center text-xs font-bold text-gray-700">Recuritment Poster</p>
+                </div>
+                <div class="poster-card bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:-translate-y-1">
+                    <img src="Marketing poster.png" onclick="openLightbox(this)" onerror="this.src='https://placehold.co/400x550/f97316/ffffff?text=Poster+3'">
+                    <p class="p-3 text-center text-xs font-bold text-gray-700">Marketing Poster</p>
+                </div>
+                <div class="poster-card bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:-translate-y-1">
+                    <img src="Colthing Shop Poster.png" onclick="openLightbox(this)" onerror="this.src='https://placehold.co/400x550/f97316/ffffff?text=Poster+4'">
+                    <p class="p-3 text-center text-xs font-bold text-gray-700">Clothing Shop</p>
+                </div>
+                <div class="poster-card bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:-translate-y-1">
+                    <img src="Construction Poster.png" onclick="openLightbox(this)" onerror="this.src='https://placehold.co/400x550/f97316/ffffff?text=Poster+5'">
+                    <p class="p-3 text-center text-xs font-bold text-gray-700">Construction</p>
+                </div>
+                <div class="poster-card bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:-translate-y-1">
+                    <img src="New year poster.png" onclick="openLightbox(this)" onerror="this.src='https://placehold.co/400x550/f97316/ffffff?text=Poster+6'">
+                    <p class="p-3 text-center text-xs font-bold text-gray-700">New Year</p>
+                </div>
+                <div class="poster-card bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:-translate-y-1">
+                    <img src="Opening poster.png" onclick="openLightbox(this)" onerror="this.src='https://placehold.co/400x550/f97316/ffffff?text=Poster+7'">
+                    <p class="p-3 text-center text-xs font-bold text-gray-700">Grand Opening Poster</p>
+                </div>
+                <div class="poster-card bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:-translate-y-1">
+                    <img src="Clothing logo.png" onclick="openLightbox(this)" onerror="this.src='https://placehold.co/400x550/f97316/ffffff?text=Poster+8'">
+                    <p class="p-3 text-center text-xs font-bold text-gray-700">Clothing Logo</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 mb-16">
+            <div class="max-w-6xl mx-auto bg-primary text-white rounded-3xl p-10 shadow-2xl text-center">
+                <h3 class="text-4xl font-bold mb-4">Let's Create Something Amazing.</h3>
+                <div class="flex flex-col md:flex-row gap-8 justify-center items-center mt-8">
+                    <a class="text-2xl font-semibold">karthicraja.ge@gmail.com</a>
+                    <span class="hidden md:block">|</span>
+                    <a href="tel:+919283211441" class="text-2xl font-semibold hover:underline">+91 9283211441</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-5xl hover:text-accent transition-colors">&times;</button>
+        <img id="lightboxImage" src="" class="max-w-full max-h-full object-contain rounded shadow-2xl scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark-text py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400 text-sm">
+            <p>&copy; 2025 KARTHICRAJA. UI/UX & Graphic Designer.</p>
+        </div>
+    </footer>
+
+    <script>
+        // State Management for Carousels
+        const carousels = {
+            'FreshEats': { currentIndex: 0, track: document.getElementById('FreshEatsTrack'), indicators: document.getElementById('FreshEatsIndicators') },
+            'Roam': { currentIndex: 0, track: document.getElementById('RoamTrack'), indicators: document.getElementById('RoamIndicators') }
+        };
+
+        function updateCarouselUI(projectId) {
+            const carousel = carousels[projectId];
+            if (!carousel.track) return;
+            const slidesCount = carousel.track.children.length;
+            
+            // Loop functionality
+            if (carousel.currentIndex >= slidesCount) carousel.currentIndex = 0;
+            if (carousel.currentIndex < 0) carousel.currentIndex = slidesCount - 1;
+            
+            const offset = -carousel.currentIndex * 100;
+            carousel.track.style.transform = `translateX(${offset}%)`;
+            
+            if (carousel.indicators) {
+                const dots = carousel.indicators.children;
+                Array.from(dots).forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === carousel.currentIndex);
+                });
+            }
+        }
+
+        function moveSlide(projectId, direction) {
+            carousels[projectId].currentIndex += direction;
+            updateCarouselUI(projectId);
+        }
+
+        function goToSlide(projectId, index) {
+            carousels[projectId].currentIndex = index;
+            updateCarouselUI(projectId);
+        }
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImage');
+
+        function openLightbox(imgElement) {
+            lightboxImg.src = imgElement.src;
+            lightbox.classList.remove('hidden');
+            setTimeout(() => lightboxImg.classList.replace('scale-95', 'scale-100'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightboxImg.classList.replace('scale-100', 'scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 200);
+        }
+
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+        
+        // Initial UI Update
+        window.addEventListener('DOMContentLoaded', () => {
+            Object.keys(carousels).forEach(id => updateCarouselUI(id));
+        });
+    </script>
+</body>
+</html>
