@@ -1,2 +1,2 @@
 # G.E.Karthicraja-Portfolio
-UI/UX design portfolio
+UI/UX and Graphic design portfolio
